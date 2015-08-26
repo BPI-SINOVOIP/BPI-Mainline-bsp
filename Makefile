@@ -1,6 +1,5 @@
 .PHONY: all clean help
 .PHONY: u-boot kernel kernel-config
-.PHONY: linux pack
 
 include chosen_board.mk
 
@@ -29,7 +28,7 @@ clean:
 #	$(Q)scripts/mk_pack.sh
 
 # u-boot
-$(U_CONFIG_H): BPI-Mainline-uboot/.git
+$(U_CONFIG_H): u-boot/.git
 	$(Q)mkdir -p $(U_O_PATH)
 	$(Q)$(MAKE) -C u-boot $(UBOOT_CONFIG) O=$(U_O_PATH) CROSS_COMPILE=$(CROSS_COMPILE) -j$J
 
@@ -37,7 +36,7 @@ u-boot: $(U_CONFIG_H)
 	$(Q)$(MAKE) -C u-boot all O=$(U_O_PATH) CROSS_COMPILE=$(CROSS_COMPILE) -j$J
 
 ## linux
-$(K_DOT_CONFIG): kernel
+$(K_DOT_CONFIG): kernel/.git
 	$(Q)mkdir -p $(K_O_PATH)
 	$(Q)$(MAKE) -C kernel O=$(K_O_PATH) ARCH=arm $(KERNEL_CONFIG)
 
@@ -48,7 +47,7 @@ kernel: $(K_DOT_CONFIG)
 
 kernel-config: $(K_DOT_CONFIG)
 	$(Q)$(MAKE) -C kernel O=$(K_O_PATH) ARCH=arm menuconfig
-	cp linux-sunxi/.config linux-sunxi/arch/arm/configs/$(KERNEL_CONFIG)
+	cp $(K_DOT_CONFIG) linux-sunxi/arch/arm/configs/$(KERNEL_CONFIG)
 
 ## bsp
 bsp: u-boot kernel
