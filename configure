@@ -1,0 +1,40 @@
+#!/bin/sh
+
+set -e
+
+CUR_DIR=$PWD
+BOARD=
+
+generate_board_mk() {
+	
+	cat <<-EOT
+	BOARD=$BOARD
+	UBOOT_CONFIG=${BOARD}_defconfig
+	KERNEL_CONFIG=bpi_defconfig
+	EOT
+
+}
+
+usage() {
+	cat <<-EOT >&2
+	Usage: $0 <board>
+
+	supported boards:
+	EOT
+}
+
+if [ $# -eq 0 ]; then
+	usage
+	exit 1
+fi
+
+BOARD=$1
+
+out=chosen_board.mk
+if generate_board_mk "$1" > $out~; then
+	mv $out~ $out
+	echo "$1 configured. Now run \`make\`"
+else
+	rm $out~
+	exit 1
+fi
