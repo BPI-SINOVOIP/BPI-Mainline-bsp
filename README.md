@@ -1,6 +1,7 @@
 # BPI-Mainline-bsp
 
- # Build
+
+ **Build**
 
   1. Choose a board, Bananapi_M1, Bananapi_M1_Plus, Bananapi_M2 or Bananapi_R1.
 
@@ -9,7 +10,7 @@
   2. $ make
 
 
- # Boot
+ **Boot**
 
   1. Partition the sdcard with a 32MB FAT32 boot partition starting at 1MB, and the reset as rootfs partition with ext4 format. You can change the boot partition size as you want.
 
