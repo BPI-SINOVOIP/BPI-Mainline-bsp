@@ -14,7 +14,7 @@
 
 > **Boot**
 
-  1. Partition the sdcard with a 32MB FAT32 boot partition starting at 1MB, and the reset as rootfs partition with ext4 format. You can change the boot partition size as you want.
+  1. Partition the sdcard with a 32MB FAT32 boot partition starting at 1MB, and the rest as rootfs partition with ext4 format. You can change the boot partition size as you want.
 
   2. Create a file boot.cmd on the boot partition.
 
@@ -40,4 +40,4 @@
 
   5. Copy uImage and dtb files to ${BOOT_PARTITION}/bananapi/.
 
-  6. Copy your rootfs to partition 2 and copy kernel modules.
+  6. Copy your rootfs to rootfs partition and copy kernel modules.
