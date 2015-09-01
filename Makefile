@@ -39,6 +39,9 @@ u-boot: $(U_CONFIG_H)
 $(K_DOT_CONFIG): kernel/.git
 	$(Q)mkdir -p $(K_O_PATH)
 	$(Q)$(MAKE) -C kernel O=$(K_O_PATH) ARCH=arm $(KERNEL_CONFIG)
+ifeq ($(BOARD),Bananapi_R1)
+        echo "CONFIG_SWCONFIG=y" >> $(K_O_PATH)/.config
+endif
 
 kernel: $(K_DOT_CONFIG)
 	$(Q)$(MAKE) -C kernel O=$(K_O_PATH) ARCH=arm CROSS_COMPILE=${CROSS_COMPILE} -j$J dtbs
@@ -47,7 +50,7 @@ kernel: $(K_DOT_CONFIG)
 
 kernel-config: $(K_DOT_CONFIG)
 	$(Q)$(MAKE) -C kernel O=$(K_O_PATH) ARCH=arm menuconfig
-	cp $(K_DOT_CONFIG) linux-sunxi/arch/arm/configs/$(KERNEL_CONFIG)
+	cp $(K_DOT_CONFIG) kernel/arch/arm/configs/$(KERNEL_CONFIG)
 
 ## bsp
 bsp: u-boot kernel
