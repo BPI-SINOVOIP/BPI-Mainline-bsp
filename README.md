@@ -41,3 +41,5 @@
   5. Copy uImage and dtb files to ${BOOT_PARTITION}/bananapi/.
 
   6. Copy your rootfs to rootfs partition and copy kernel modules.
+
+  7. Copy package/bcm_firmware/brcm folder to ${ROOTFS_PARTITION}/lib/firmware/ for BPI-M2 and BPI-M1-Plus WLAN available.
